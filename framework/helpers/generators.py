@@ -1,5 +1,5 @@
-from random import randint, choice
 import string
+from random import randint, choice
 
 
 def get_random_string():

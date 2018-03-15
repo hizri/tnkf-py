@@ -4,7 +4,6 @@ import requests
 from allure_commons._allure import attach
 from allure_commons.types import AttachmentType
 
-from framework.data.constants import BASE_URL, HEADERS, STATUS, REDIRECT
 from framework.utils.logger import logger
 from framework.utils.step_wrapper import step
 
@@ -38,6 +37,11 @@ def send_request(url, method='GET', headers=None, timeout=None, allow_redirects=
     if return_history:
         return response.status_code, response.headers, response.history, response_content
     return response.status_code, response.headers, response_content
+
+
+def log_built_schema(schema):
+    schema = json.dumps(schema, indent=4)
+    logger.debug('JSON schema was built:\n{}'.format(schema))
 
 
 def json_response(response):
@@ -95,4 +99,4 @@ def _log_exception(exception):
 
 
 def _log_add_separator():
-    logger.info('=' * 68)
+    logger.info('=' * 100)

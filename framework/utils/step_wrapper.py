@@ -1,5 +1,6 @@
-import allure
 from contextlib import contextmanager
+
+import allure
 
 
 @contextmanager

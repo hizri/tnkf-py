@@ -10,13 +10,12 @@ from framework.service import httpbin
 
 @pytest.allure.feature('Handler /redirect')
 class TestRedirect:
-    """
-    /redirect/:N handler should make N redirects before response is returned
-    """
 
     @pytest.allure.story('Positive')
     def test_redirect(self):
         """
+        /redirect/:N handler should make N redirects before response is returned
+        ========================================================
         Positive case with random valid redirects count
         """
         count = randint(1, 10)
@@ -30,6 +29,8 @@ class TestRedirect:
                              ids=['negative int', 'random string', 'empty'])
     def test_redirect_wrong_count(self, invalid_count):
         """
+        /redirect/:N handler should make N redirects before response is returned
+        ========================================================
         Negative case with random invalid redirects count value
         Response with 404 status code (Not Found) should be returned
         """

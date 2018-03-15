@@ -1,5 +1,5 @@
-from framework.utils.service_utils import send_request
 from framework.data.constants import BASE_URL, HEADERS, REDIRECT, STATUS
+from framework.utils.service_utils import send_request
 
 
 def request_headers(headers=None):

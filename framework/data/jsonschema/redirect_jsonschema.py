@@ -1,37 +1,14 @@
-import json
+from framework.data.jsonschema.base_jsonschema import BaseJSONSchema
+from framework.utils.service_utils import log_built_schema
 
-from framework.utils.logger import logger
 
-
-class RedirectJSONSchema:
-
+class RedirectJSONSchema(BaseJSONSchema):
     def __init__(self):
-        self.json_schema = {}
+        super().__init__()
+        self.json_schema['properties']['args'] = {'type': 'object'}
+        self.json_schema['properties']['origin'] = {'type': 'string'}
+        self.json_schema['properties']['url'] = {'enum': ['https://httpbin.org/get']}
 
     def build_redirect_schema(self):
-        self.json_schema = {
-            'type': 'object',
-            'properties': {
-                'args': {'type': 'object'},
-                'origin': {'type': 'string'},
-                'url': {'enum': ['https://httpbin.org/get']},
-                'headers': {
-                    'type': 'object',
-                    'properties': {
-                        'Accept': {'enum': ['*/*']},
-                        'Accept_Encoding': {'enum': ['gzip, deflate']},
-                        'Connection': {'enum': ['close']},
-                        'Host': {'enum': ['httpbin.org']},
-                        'User-Agent': {'type': 'string'}
-                    }
-                }
-            },
-            'additionalProperties': False
-        }
-        _log_built_schema(self.json_schema)
+        log_built_schema(self.json_schema)
         return self.json_schema
-
-
-def _log_built_schema(schema):
-    schema = json.dumps(schema, indent=4)
-    logger.debug('JSON schema was built:\n{}'.format(schema))

@@ -9,14 +9,13 @@ from framework.service import httpbin
 
 @pytest.allure.feature('Handler /status')
 class TestStatus:
-    """
-    Handler /status should return response with same status code as was sent
-    as request parameter
-    """
 
     @pytest.allure.story('Positive')
     def test_status(self):
         """
+        Handler /status/{code} should return response with same status code as was sent
+        as request parameter. Valid code should be 3-digit value
+        ========================================================
         Positive case with random valid status code value (3-digit number)
         """
         status_code = randint(110, 999)
@@ -26,8 +25,11 @@ class TestStatus:
     @pytest.allure.story('Negative')
     def test_status_empty_value(self):
         """
-        Negative case with no status code value in request
-        Response with 404 status code (Not Found) should be returned
+        Handler /status/{code} should return response with same status code as was sent
+        as request parameter. Valid code should be 3-digit value
+        ========================================================
+        Negative case with no status code value in request.
+        Response with 404 status code (Not Found) should be returned.
         """
         code, *_ = httpbin.request_status('')
         response_check.check_code_not_found(code)
@@ -35,8 +37,11 @@ class TestStatus:
     @pytest.allure.story('Negative')
     def test_status_invalid_code_string(self):
         """
-        Negative case with string status code value
-        Response with 400 status code (Bad Request) should be returned
+        Handler /status/{code} should return response with same status code as was sent
+        as request parameter. Valid code should be 3-digit value
+        ========================================================
+        Negative case with string status code value.
+        Response with 400 status code (Bad Request) should be returned.
         """
         code, _, response = httpbin.request_status(get_random_string())
         response_check.check_code_bad_request(code)
@@ -47,8 +52,11 @@ class TestStatus:
                              ids=['unexisting code', 'negative int'])
     def test_status_invalid_code(self, status_code):
         """
-        Negative case with string status code value
-        Response with 500 status code (Server Error) should be returned
+        Handler /status/{code} should return response with same status code as was sent
+        as request parameter. Valid code should be 3-digit value
+        ========================================================
+        Negative case with string status code value.
+        Response with 500 status code (Server Error) should be returned.
         """
         code, *_ = httpbin.request_status(status_code)
         response_check.check_code_server_error(code)
